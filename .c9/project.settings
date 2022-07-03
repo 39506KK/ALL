@@ -2,8 +2,15 @@
     "ace": {
         "@tabSize": 2
     },
+    "build": {
+        "@saveall": true
+    },
     "extensions": {
-        "@aws.profile": "profile:default"
+        "@aws.profile": "profile:default",
+        "@editor.acceptSuggestionOnEnter": "on",
+        "@editor.snippetSuggestions": "top",
+        "@editor.suggest.preview": true,
+        "@editor.suggest.showMethods": true
     },
     "general": {
         "@stripws": true

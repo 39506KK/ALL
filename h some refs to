@@ -1,0 +1,1469 @@
+[1mdiff --git a/.c9/amazonwebservices.aws-toolkit-vscode/cloudformation.schema.json b/.c9/amazonwebservices.aws-toolkit-vscode/cloudformation.schema.json[m
+[1mindex b3188df..8167a0d 100644[m
+[1m--- a/.c9/amazonwebservices.aws-toolkit-vscode/cloudformation.schema.json[m
+[1m+++ b/.c9/amazonwebservices.aws-toolkit-vscode/cloudformation.schema.json[m
+[36m@@ -6235,6 +6235,12 @@[m
+                             "type": "array"[m
+                         },[m
+                         "Tags": {[m
+[32m+[m[32m                            "additionalProperties": true,[m
+[32m+[m[32m                            "patternProperties": {[m
+[32m+[m[32m                                "^[a-zA-Z0-9]+$": {[m
+[32m+[m[32m                                    "type": "string"[m
+[32m+[m[32m                                }[m
+[32m+[m[32m                            },[m
+                             "type": "object"[m
+                         }[m
+                     },[m
+[36m@@ -6904,6 +6910,9 @@[m
+                         "ConnectionMode": {[m
+                             "type": "string"[m
+                         },[m
+[32m+[m[32m                        "ConnectorLabel": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+                         "ConnectorProfileConfig": {[m
+                             "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.ConnectorProfileConfig"[m
+                         },[m
+[36m@@ -6961,6 +6970,37 @@[m
+             ],[m
+             "type": "object"[m
+         },[m
+[32m+[m[32m        "AWS::AppFlow::ConnectorProfile.ApiKeyCredentials": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "ApiKey": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "ApiSecretKey": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "ApiKey"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::AppFlow::ConnectorProfile.BasicAuthCredentials": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "Password": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Username": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "Password",[m
+[32m+[m[32m                "Username"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+         "AWS::AppFlow::ConnectorProfile.ConnectorOAuthRequest": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[36m@@ -6994,6 +7034,9 @@[m
+                 "Amplitude": {[m
+                     "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.AmplitudeConnectorProfileCredentials"[m
+                 },[m
+[32m+[m[32m                "CustomConnector": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.CustomConnectorProfileCredentials"[m
+[32m+[m[32m                },[m
+                 "Datadog": {[m
+                     "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.DatadogConnectorProfileCredentials"[m
+                 },[m
+[36m@@ -7045,6 +7088,9 @@[m
+         "AWS::AppFlow::ConnectorProfile.ConnectorProfileProperties": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[32m+[m[32m                "CustomConnector": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.CustomConnectorProfileProperties"[m
+[32m+[m[32m                },[m
+                 "Datadog": {[m
+                     "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.DatadogConnectorProfileProperties"[m
+                 },[m
+[36m@@ -7084,6 +7130,62 @@[m
+             },[m
+             "type": "object"[m
+         },[m
+[32m+[m[32m        "AWS::AppFlow::ConnectorProfile.CredentialsMap": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {},[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::AppFlow::ConnectorProfile.CustomAuthCredentials": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "CredentialsMap": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.CredentialsMap"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "CustomAuthenticationType": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "CustomAuthenticationType"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::AppFlow::ConnectorProfile.CustomConnectorProfileCredentials": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "ApiKey": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.ApiKeyCredentials"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "AuthenticationType": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Basic": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.BasicAuthCredentials"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Custom": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.CustomAuthCredentials"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Oauth2": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.OAuth2Credentials"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "AuthenticationType"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::AppFlow::ConnectorProfile.CustomConnectorProfileProperties": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "OAuth2Properties": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.OAuth2Properties"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "ProfileProperties": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.ProfileProperties"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+         "AWS::AppFlow::ConnectorProfile.DatadogConnectorProfileCredentials": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[36m@@ -7231,6 +7333,42 @@[m
+             ],[m
+             "type": "object"[m
+         },[m
+[32m+[m[32m        "AWS::AppFlow::ConnectorProfile.OAuth2Credentials": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "AccessToken": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "ClientId": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "ClientSecret": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "OAuthRequest": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.ConnectorOAuthRequest"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "RefreshToken": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::AppFlow::ConnectorProfile.OAuth2Properties": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "OAuth2GrantType": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "TokenUrl": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "TokenUrlCustomProperties": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.TokenUrlCustomProperties"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+         "AWS::AppFlow::ConnectorProfile.OAuthProperties": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[36m@@ -7249,6 +7387,11 @@[m
+             },[m
+             "type": "object"[m
+         },[m
+[32m+[m[32m        "AWS::AppFlow::ConnectorProfile.ProfileProperties": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {},[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+         "AWS::AppFlow::ConnectorProfile.RedshiftConnectorProfileCredentials": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[36m@@ -7292,7 +7435,7 @@[m
+             "additionalProperties": false,[m
+             "properties": {[m
+                 "BasicAuthCredentials": {[m
+[31m-                    "type": "object"[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.BasicAuthCredentials"[m
+                 },[m
+                 "OAuthCredentials": {[m
+                     "type": "object"[m
+[36m@@ -7479,6 +7622,11 @@[m
+             ],[m
+             "type": "object"[m
+         },[m
+[32m+[m[32m        "AWS::AppFlow::ConnectorProfile.TokenUrlCustomProperties": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {},[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+         "AWS::AppFlow::ConnectorProfile.TrendmicroConnectorProfileCredentials": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[36m@@ -7679,6 +7827,9 @@[m
+                 "Amplitude": {[m
+                     "type": "string"[m
+                 },[m
+[32m+[m[32m                "CustomConnector": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+                 "Datadog": {[m
+                     "type": "string"[m
+                 },[m
+[36m@@ -7724,6 +7875,53 @@[m
+             },[m
+             "type": "object"[m
+         },[m
+[32m+[m[32m        "AWS::AppFlow::Flow.CustomConnectorDestinationProperties": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "CustomProperties": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::Flow.CustomProperties"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "EntityName": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "ErrorHandlingConfig": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::Flow.ErrorHandlingConfig"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "IdFieldNames": {[m
+[32m+[m[32m                    "items": {[m
+[32m+[m[32m                        "type": "string"[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "type": "array"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "WriteOperationType": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "EntityName"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::AppFlow::Flow.CustomConnectorSourceProperties": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "CustomProperties": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::Flow.CustomProperties"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "EntityName": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "EntityName"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::AppFlow::Flow.CustomProperties": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {},[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+         "AWS::AppFlow::Flow.DatadogSourceProperties": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[36m@@ -7739,6 +7937,9 @@[m
+         "AWS::AppFlow::Flow.DestinationConnectorProperties": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[32m+[m[32m                "CustomConnector": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::Flow.CustomConnectorDestinationProperties"[m
+[32m+[m[32m                },[m
+                 "EventBridge": {[m
+                     "$ref": "#/definitions/AWS::AppFlow::Flow.EventBridgeDestinationProperties"[m
+                 },[m
+[36m@@ -7775,6 +7976,9 @@[m
+         "AWS::AppFlow::Flow.DestinationFlowConfig": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[32m+[m[32m                "ApiVersion": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+                 "ConnectorProfileName": {[m
+                     "type": "string"[m
+                 },[m
+[36m@@ -7974,6 +8178,9 @@[m
+                 },[m
+                 "PrefixConfig": {[m
+                     "$ref": "#/definitions/AWS::AppFlow::Flow.PrefixConfig"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "PreserveSourceDataTyping": {[m
+[32m+[m[32m                    "type": "boolean"[m
+                 }[m
+             },[m
+             "type": "object"[m
+[36m@@ -8084,6 +8291,9 @@[m
+                 "DataPullMode": {[m
+                     "type": "string"[m
+                 },[m
+[32m+[m[32m                "FlowErrorDeactivationThreshold": {[m
+[32m+[m[32m                    "type": "number"[m
+[32m+[m[32m                },[m
+                 "ScheduleEndTime": {[m
+                     "type": "number"[m
+                 },[m
+[36m@@ -8169,6 +8379,9 @@[m
+                 "Amplitude": {[m
+                     "$ref": "#/definitions/AWS::AppFlow::Flow.AmplitudeSourceProperties"[m
+                 },[m
+[32m+[m[32m                "CustomConnector": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppFlow::Flow.CustomConnectorSourceProperties"[m
+[32m+[m[32m                },[m
+                 "Datadog": {[m
+                     "$ref": "#/definitions/AWS::AppFlow::Flow.DatadogSourceProperties"[m
+                 },[m
+[36m@@ -8217,6 +8430,9 @@[m
+         "AWS::AppFlow::Flow.SourceFlowConfig": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[32m+[m[32m                "ApiVersion": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+                 "ConnectorProfileName": {[m
+                     "type": "string"[m
+                 },[m
+[36m@@ -9176,7 +9392,11 @@[m
+         },[m
+         "AWS::AppMesh::Mesh.MeshServiceDiscovery": {[m
+             "additionalProperties": false,[m
+[31m-            "properties": {},[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "IpPreference": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+             "type": "object"[m
+         },[m
+         "AWS::AppMesh::Mesh.MeshSpec": {[m
+[36m@@ -9184,6 +9404,9 @@[m
+             "properties": {[m
+                 "EgressFilter": {[m
+                     "$ref": "#/definitions/AWS::AppMesh::Mesh.EgressFilter"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "ServiceDiscovery": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::AppMesh::Mesh.MeshServiceDiscovery"[m
+                 }[m
+             },[m
+             "type": "object"[m
+[36m@@ -10323,6 +10546,9 @@[m
+                     },[m
+                     "type": "array"[m
+                 },[m
+[32m+[m[32m                "IpPreference": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+                 "NamespaceName": {[m
+                     "type": "string"[m
+                 },[m
+[36m@@ -10405,6 +10631,9 @@[m
+                 "Hostname": {[m
+                     "type": "string"[m
+                 },[m
+[32m+[m[32m                "IpPreference": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+                 "ResponseType": {[m
+                     "type": "string"[m
+                 }[m
+[36m@@ -12689,6 +12918,9 @@[m
+                             },[m
+                             "type": "array"[m
+                         },[m
+[32m+[m[32m                        "StreamingExperienceSettings": {[m
+[32m+[m[32m                            "$ref": "#/definitions/AWS::AppStream::Stack.StreamingExperienceSettings"[m
+[32m+[m[32m                        },[m
+                         "Tags": {[m
+                             "items": {[m
+                                 "$ref": "#/definitions/Tag"[m
+[36m@@ -12776,6 +13008,15 @@[m
+             ],[m
+             "type": "object"[m
+         },[m
+[32m+[m[32m        "AWS::AppStream::Stack.StreamingExperienceSettings": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "PreferredProtocol": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+         "AWS::AppStream::Stack.UserSetting": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[36m@@ -13743,7 +13984,10 @@[m
+                     "additionalProperties": false,[m
+                     "properties": {[m
+                         "AdditionalAuthenticationProviders": {[m
+[31m-                            "$ref": "#/definitions/AWS::AppSync::GraphQLApi.AdditionalAuthenticationProviders"[m
+[32m+[m[32m                            "items": {[m
+[32m+[m[32m                                "$ref": "#/definitions/AWS::AppSync::GraphQLApi.AdditionalAuthenticationProvider"[m
+[32m+[m[32m                            },[m
+[32m+[m[32m                            "type": "array"[m
+                         },[m
+                         "AuthenticationType": {[m
+                             "type": "string"[m
+[36m@@ -13761,7 +14005,10 @@[m
+                             "$ref": "#/definitions/AWS::AppSync::GraphQLApi.OpenIDConnectConfig"[m
+                         },[m
+                         "Tags": {[m
+[31m-                            "$ref": "#/definitions/AWS::AppSync::GraphQLApi.Tags"[m
+[32m+[m[32m                            "items": {[m
+[32m+[m[32m                                "$ref": "#/definitions/Tag"[m
+[32m+[m[32m                            },[m
+[32m+[m[32m                            "type": "array"[m
+                         },[m
+                         "UserPoolConfig": {[m
+                             "$ref": "#/definitions/AWS::AppSync::GraphQLApi.UserPoolConfig"[m
+[36m@@ -13818,11 +14065,6 @@[m
+             ],[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::AppSync::GraphQLApi.AdditionalAuthenticationProviders": {[m
+[31m-            "additionalProperties": false,[m
+[31m-            "properties": {},[m
+[31m-            "type": "object"[m
+[31m-        },[m
+         "AWS::AppSync::GraphQLApi.CognitoUserPoolConfig": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[36m@@ -13886,11 +14128,6 @@[m
+             },[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::AppSync::GraphQLApi.Tags": {[m
+[31m-            "additionalProperties": false,[m
+[31m-            "properties": {},[m
+[31m-            "type": "object"[m
+[31m-        },[m
+         "AWS::AppSync::GraphQLApi.UserPoolConfig": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[36m@@ -14558,6 +14795,9 @@[m
+                             },[m
+                             "type": "array"[m
+                         },[m
+[32m+[m[32m                        "GroupingType": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+                         "LogPatternSets": {[m
+                             "items": {[m
+                                 "$ref": "#/definitions/AWS::ApplicationInsights::Application.LogPatternSet"[m
+[36m@@ -15553,6 +15793,9 @@[m
+                         "Cooldown": {[m
+                             "type": "string"[m
+                         },[m
+[32m+[m[32m                        "DefaultInstanceWarmup": {[m
+[32m+[m[32m                            "type": "number"[m
+[32m+[m[32m                        },[m
+                         "DesiredCapacity": {[m
+                             "type": "string"[m
+                         },[m
+[36m@@ -24077,7 +24320,7 @@[m
+             ],[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::CloudTrail::Trail": {[m
+[32m+[m[32m        "AWS::CloudTrail::EventDataStore": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+                 "Condition": {[m
+[36m@@ -24112,50 +24355,23 @@[m
+                 "Properties": {[m
+                     "additionalProperties": false,[m
+                     "properties": {[m
+[31m-                        "CloudWatchLogsLogGroupArn": {[m
+[31m-                            "type": "string"[m
+[31m-                        },[m
+[31m-                        "CloudWatchLogsRoleArn": {[m
+[31m-                            "type": "string"[m
+[31m-                        },[m
+[31m-                        "EnableLogFileValidation": {[m
+[31m-                            "type": "boolean"[m
+[31m-                        },[m
+[31m-                        "EventSelectors": {[m
+[32m+[m[32m                        "AdvancedEventSelectors": {[m
+                             "items": {[m
+[31m-                                "$ref": "#/definitions/AWS::CloudTrail::Trail.EventSelector"[m
+[32m+[m[32m                                "$ref": "#/definitions/AWS::CloudTrail::EventDataStore.AdvancedEventSelector"[m
+                             },[m
+                             "type": "array"[m
+                         },[m
+[31m-                        "IncludeGlobalServiceEvents": {[m
+[32m+[m[32m                        "MultiRegionEnabled": {[m
+                             "type": "boolean"[m
+                         },[m
+[31m-                        "InsightSelectors": {[m
+[31m-                            "items": {[m
+[31m-                                "$ref": "#/definitions/AWS::CloudTrail::Trail.InsightSelector"[m
+[31m-                            },[m
+[31m-                            "type": "array"[m
+[31m-                        },[m
+[31m-                        "IsLogging": {[m
+[31m-                            "type": "boolean"[m
+[31m-                        },[m
+[31m-                        "IsMultiRegionTrail": {[m
+[31m-                            "type": "boolean"[m
+[31m-                        },[m
+[31m-                        "IsOrganizationTrail": {[m
+[31m-                            "type": "boolean"[m
+[31m-                        },[m
+[31m-                        "KMSKeyId": {[m
+[31m-                            "type": "string"[m
+[31m-                        },[m
+[31m-                        "S3BucketName": {[m
+[32m+[m[32m                        "Name": {[m
+                             "type": "string"[m
+                         },[m
+[31m-                        "S3KeyPrefix": {[m
+[31m-                            "type": "string"[m
+[32m+[m[32m                        "OrganizationEnabled": {[m
+[32m+[m[32m                            "type": "boolean"[m
+                         },[m
+[31m-                        "SnsTopicName": {[m
+[31m-                            "type": "string"[m
+[32m+[m[32m                        "RetentionPeriod": {[m
+[32m+[m[32m                            "type": "number"[m
+                         },[m
+                         "Tags": {[m
+                             "items": {[m
+[36m@@ -24163,19 +24379,15 @@[m
+                             },[m
+                             "type": "array"[m
+                         },[m
+[31m-                        "TrailName": {[m
+[31m-                            "type": "string"[m
+[32m+[m[32m                        "TerminationProtectionEnabled": {[m
+[32m+[m[32m                            "type": "boolean"[m
+                         }[m
+                     },[m
+[31m-                    "required": [[m
+[31m-                        "IsLogging",[m
+[31m-                        "S3BucketName"[m
+[31m-                    ],[m
+                     "type": "object"[m
+                 },[m
+                 "Type": {[m
+                     "enum": [[m
+[31m-                        "AWS::CloudTrail::Trail"[m
+[32m+[m[32m                        "AWS::CloudTrail::EventDataStore"[m
+                     ],[m
+                     "type": "string"[m
+                 },[m
+[36m@@ -24189,63 +24401,245 @@[m
+                 }[m
+             },[m
+             "required": [[m
+[31m-                "Type",[m
+[31m-                "Properties"[m
+[32m+[m[32m                "Type"[m
+             ],[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::CloudTrail::Trail.DataResource": {[m
+[32m+[m[32m        "AWS::CloudTrail::EventDataStore.AdvancedEventSelector": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[31m-                "Type": {[m
+[31m-                    "type": "string"[m
+[31m-                },[m
+[31m-                "Values": {[m
+[32m+[m[32m                "FieldSelectors": {[m
+                     "items": {[m
+[31m-                        "type": "string"[m
+[32m+[m[32m                        "$ref": "#/definitions/AWS::CloudTrail::EventDataStore.AdvancedFieldSelector"[m
+                     },[m
+                     "type": "array"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Name": {[m
+[32m+[m[32m                    "type": "string"[m
+                 }[m
+             },[m
+             "required": [[m
+[31m-                "Type"[m
+[32m+[m[32m                "FieldSelectors"[m
+             ],[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::CloudTrail::Trail.EventSelector": {[m
+[32m+[m[32m        "AWS::CloudTrail::EventDataStore.AdvancedFieldSelector": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[31m-                "DataResources": {[m
+[32m+[m[32m                "EndsWith": {[m
+                     "items": {[m
+[31m-                        "$ref": "#/definitions/AWS::CloudTrail::Trail.DataResource"[m
+[32m+[m[32m                        "type": "string"[m
+                     },[m
+                     "type": "array"[m
+                 },[m
+[31m-                "ExcludeManagementEventSources": {[m
+[32m+[m[32m                "Equals": {[m
+                     "items": {[m
+                         "type": "string"[m
+                     },[m
+                     "type": "array"[m
+                 },[m
+[31m-                "IncludeManagementEvents": {[m
+[31m-                    "type": "boolean"[m
+[31m-                },[m
+[31m-                "ReadWriteType": {[m
+[31m-                    "type": "string"[m
+[31m-                }[m
+[31m-            },[m
+[31m-            "type": "object"[m
+[31m-        },[m
+[31m-        "AWS::CloudTrail::Trail.InsightSelector": {[m
+[31m-            "additionalProperties": false,[m
+[31m-            "properties": {[m
+[31m-                "InsightType": {[m
+[32m+[m[32m                "Field": {[m
+                     "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "NotEndsWith": {[m
+[32m+[m[32m                    "items": {[m
+[32m+[m[32m                        "type": "string"[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "type": "array"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "NotEquals": {[m
+[32m+[m[32m                    "items": {[m
+[32m+[m[32m                        "type": "string"[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "type": "array"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "NotStartsWith": {[m
+[32m+[m[32m                    "items": {[m
+[32m+[m[32m                        "type": "string"[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "type": "array"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "StartsWith": {[m
+[32m+[m[32m                    "items": {[m
+[32m+[m[32m                        "type": "string"[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "type": "array"[m
+                 }[m
+             },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "Field"[m
+[32m+[m[32m            ],[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::CloudWatch::Alarm": {[m
+[32m+[m[32m        "AWS::CloudTrail::Trail": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "Condition": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "DeletionPolicy": {[m
+[32m+[m[32m                    "enum": [[m
+[32m+[m[32m                        "Delete",[m
+[32m+[m[32m                        "Retain",[m
+[32m+[m[32m                        "Snapshot"[m
+[32m+[m[32m                    ],[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "DependsOn": {[m
+[32m+[m[32m                    "anyOf": [[m
+[32m+[m[32m                        {[m
+[32m+[m[32m                            "pattern": "^[a-zA-Z0-9]+$",[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        {[m
+[32m+[m[32m                            "items": {[m
+[32m+[m[32m                                "pattern": "^[a-zA-Z0-9]+$",[m
+[32m+[m[32m                                "type": "string"[m
+[32m+[m[32m                            },[m
+[32m+[m[32m                            "type": "array"[m
+[32m+[m[32m                        }[m
+[32m+[m[32m                    ][m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Metadata": {[m
+[32m+[m[32m                    "type": "object"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Properties": {[m
+[32m+[m[32m                    "additionalProperties": false,[m
+[32m+[m[32m                    "properties": {[m
+[32m+[m[32m                        "CloudWatchLogsLogGroupArn": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "CloudWatchLogsRoleArn": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "EnableLogFileValidation": {[m
+[32m+[m[32m                            "type": "boolean"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "EventSelectors": {[m
+[32m+[m[32m                            "items": {[m
+[32m+[m[32m                                "$ref": "#/definitions/AWS::CloudTrail::Trail.EventSelector"[m
+[32m+[m[32m                            },[m
+[32m+[m[32m                            "type": "array"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "IncludeGlobalServiceEvents": {[m
+[32m+[m[32m                            "type": "boolean"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "InsightSelectors": {[m
+[32m+[m[32m                            "items": {[m
+[32m+[m[32m                                "$ref": "#/definitions/AWS::CloudTrail::Trail.InsightSelector"[m
+[32m+[m[32m                            },[m
+[32m+[m[32m                            "type": "array"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "IsLogging": {[m
+[32m+[m[32m                            "type": "boolean"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "IsMultiRegionTrail": {[m
+[32m+[m[32m                            "type": "boolean"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "IsOrganizationTrail": {[m
+[32m+[m[32m                            "type": "boolean"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "KMSKeyId": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "S3BucketName": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "S3KeyPrefix": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "SnsTopicName": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "Tags": {[m
+[32m+[m[32m                            "items": {[m
+[32m+[m[32m                                "$ref": "#/definitions/Tag"[m
+[32m+[m[32m                            },[m
+[32m+[m[32m                            "type": "array"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "TrailName": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        }[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "required": [[m
+[32m+[m[32m                        "IsLogging",[m
+[32m+[m[32m                        "S3BucketName"[m
+[32m+[m[32m                    ],[m
+[32m+[m[32m                    "type": "object"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Type": {[m
+[32m+[m[32m                    "enum": [[m
+[32m+[m[32m                        "AWS::CloudTrail::Trail"[m
+[32m+[m[32m                    ],[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "UpdateReplacePolicy": {[m
+[32m+[m[32m                    "enum": [[m
+[32m+[m[32m                        "Delete",[m
+[32m+[m[32m                        "Retain",[m
+[32m+[m[32m                        "Snapshot"[m
+[32m+[m[32m                    ],[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "Type",[m
+[32m+[m[32m                "Properties"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::CloudTrail::Trail.DataResource": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "Type": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Values": {[m
+[32m+[m[32m                    "items": {[m
+[32m+[m[32m                        "type": "string"[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "type": "array"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "Type"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::CloudTrail::Trail.EventSelector": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "DataResources": {[m
+[32m+[m[32m                    "items": {[m
+[32m+[m[32m                        "$ref": "#/definitions/AWS::CloudTrail::Trail.DataResource"[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "type": "array"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "ExcludeManagementEventSources": {[m
+[32m+[m[32m                    "items": {[m
+[32m+[m[32m                        "type": "string"[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "type": "array"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "IncludeManagementEvents": {[m
+[32m+[m[32m                    "type": "boolean"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "ReadWriteType": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::CloudTrail::Trail.InsightSelector": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "InsightType": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::CloudWatch::Alarm": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+                 "Condition": {[m
+[36m@@ -28333,6 +28727,9 @@[m
+                         "SmsVerificationMessage": {[m
+                             "type": "string"[m
+                         },[m
+[32m+[m[32m                        "UserAttributeUpdateSettings": {[m
+[32m+[m[32m                            "$ref": "#/definitions/AWS::Cognito::UserPool.UserAttributeUpdateSettings"[m
+[32m+[m[32m                        },[m
+                         "UserPoolAddOns": {[m
+                             "$ref": "#/definitions/AWS::Cognito::UserPool.UserPoolAddOns"[m
+                         },[m
+[36m@@ -28632,6 +29029,21 @@[m
+             },[m
+             "type": "object"[m
+         },[m
+[32m+[m[32m        "AWS::Cognito::UserPool.UserAttributeUpdateSettings": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "AttributesRequireVerificationBeforeUpdate": {[m
+[32m+[m[32m                    "items": {[m
+[32m+[m[32m                        "type": "string"[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "type": "array"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "AttributesRequireVerificationBeforeUpdate"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+         "AWS::Cognito::UserPool.UserPoolAddOns": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[36m@@ -28742,6 +29154,9 @@[m
+                         "DefaultRedirectURI": {[m
+                             "type": "string"[m
+                         },[m
+[32m+[m[32m                        "EnablePropagateAdditionalUserContextData": {[m
+[32m+[m[32m                            "type": "boolean"[m
+[32m+[m[32m                        },[m
+                         "EnableTokenRevocation": {[m
+                             "type": "boolean"[m
+                         },[m
+[36m@@ -29856,8 +30271,7 @@[m
+                 }[m
+             },[m
+             "required": [[m
+[31m-                "Owner",[m
+[31m-                "SourceIdentifier"[m
+[32m+[m[32m                "Owner"[m
+             ],[m
+             "type": "object"[m
+         },[m
+[36m@@ -31350,7 +31764,7 @@[m
+             ],[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::Connect::User": {[m
+[32m+[m[32m        "AWS::Connect::TaskTemplate": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+                 "Condition": {[m
+[36m@@ -31385,55 +31799,54 @@[m
+                 "Properties": {[m
+                     "additionalProperties": false,[m
+                     "properties": {[m
+[31m-                        "DirectoryUserId": {[m
+[31m-                            "type": "string"[m
+[31m-                        },[m
+[31m-                        "HierarchyGroupArn": {[m
+[32m+[m[32m                        "ClientToken": {[m
+                             "type": "string"[m
+                         },[m
+[31m-                        "IdentityInfo": {[m
+[31m-                            "$ref": "#/definitions/AWS::Connect::User.UserIdentityInfo"[m
+[31m-                        },[m
+[31m-                        "InstanceArn": {[m
+[31m-                            "type": "string"[m
+[32m+[m[32m                        "Constraints": {[m
+[32m+[m[32m                            "type": "object"[m
+                         },[m
+[31m-                        "Password": {[m
+[32m+[m[32m                        "ContactFlowArn": {[m
+                             "type": "string"[m
+                         },[m
+[31m-                        "PhoneConfig": {[m
+[31m-                            "$ref": "#/definitions/AWS::Connect::User.UserPhoneConfig"[m
+[32m+[m[32m                        "Defaults": {[m
+[32m+[m[32m                            "items": {[m
+[32m+[m[32m                                "$ref": "#/definitions/AWS::Connect::TaskTemplate.DefaultFieldValue"[m
+[32m+[m[32m                            },[m
+[32m+[m[32m                            "type": "array"[m
+                         },[m
+[31m-                        "RoutingProfileArn": {[m
+[32m+[m[32m                        "Description": {[m
+                             "type": "string"[m
+                         },[m
+[31m-                        "SecurityProfileArns": {[m
+[32m+[m[32m                        "Fields": {[m
+                             "items": {[m
+[31m-                                "type": "string"[m
+[32m+[m[32m                                "$ref": "#/definitions/AWS::Connect::TaskTemplate.Field"[m
+                             },[m
+                             "type": "array"[m
+                         },[m
+[32m+[m[32m                        "InstanceArn": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "Name": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "Status": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+                         "Tags": {[m
+                             "items": {[m
+                                 "$ref": "#/definitions/Tag"[m
+                             },[m
+                             "type": "array"[m
+[31m-                        },[m
+[31m-                        "Username": {[m
+[31m-                            "type": "string"[m
+                         }[m
+                     },[m
+                     "required": [[m
+[31m-                        "InstanceArn",[m
+[31m-                        "PhoneConfig",[m
+[31m-                        "RoutingProfileArn",[m
+[31m-                        "SecurityProfileArns",[m
+[31m-                        "Username"[m
+[32m+[m[32m                        "InstanceArn"[m
+                     ],[m
+                     "type": "object"[m
+                 },[m
+                 "Type": {[m
+                     "enum": [[m
+[31m-                        "AWS::Connect::User"[m
+[32m+[m[32m                        "AWS::Connect::TaskTemplate"[m
+                     ],[m
+                     "type": "string"[m
+                 },[m
+[36m@@ -31452,43 +31865,198 @@[m
+             ],[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::Connect::User.UserIdentityInfo": {[m
+[32m+[m[32m        "AWS::Connect::TaskTemplate.DefaultFieldValue": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[31m-                "Email": {[m
+[31m-                    "type": "string"[m
+[31m-                },[m
+[31m-                "FirstName": {[m
+[32m+[m[32m                "DefaultValue": {[m
+                     "type": "string"[m
+                 },[m
+[31m-                "LastName": {[m
+[31m-                    "type": "string"[m
+[32m+[m[32m                "Id": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::Connect::TaskTemplate.FieldIdentifier"[m
+                 }[m
+             },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "DefaultValue",[m
+[32m+[m[32m                "Id"[m
+[32m+[m[32m            ],[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::Connect::User.UserPhoneConfig": {[m
+[32m+[m[32m        "AWS::Connect::TaskTemplate.Field": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[31m-                "AfterContactWorkTimeLimit": {[m
+[31m-                    "type": "number"[m
+[32m+[m[32m                "Description": {[m
+[32m+[m[32m                    "type": "string"[m
+                 },[m
+[31m-                "AutoAccept": {[m
+[31m-                    "type": "boolean"[m
+[32m+[m[32m                "Id": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::Connect::TaskTemplate.FieldIdentifier"[m
+                 },[m
+[31m-                "DeskPhoneNumber": {[m
+[31m-                    "type": "string"[m
+[32m+[m[32m                "SingleSelectOptions": {[m
+[32m+[m[32m                    "items": {[m
+[32m+[m[32m                        "type": "string"[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "type": "array"[m
+                 },[m
+[31m-                "PhoneType": {[m
+[32m+[m[32m                "Type": {[m
+                     "type": "string"[m
+                 }[m
+             },[m
+             "required": [[m
+[31m-                "PhoneType"[m
+[32m+[m[32m                "Id",[m
+[32m+[m[32m                "Type"[m
+             ],[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::Connect::UserHierarchyGroup": {[m
+[32m+[m[32m        "AWS::Connect::TaskTemplate.FieldIdentifier": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "Name": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "Name"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::Connect::User": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "Condition": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "DeletionPolicy": {[m
+[32m+[m[32m                    "enum": [[m
+[32m+[m[32m                        "Delete",[m
+[32m+[m[32m                        "Retain",[m
+[32m+[m[32m                        "Snapshot"[m
+[32m+[m[32m                    ],[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "DependsOn": {[m
+[32m+[m[32m                    "anyOf": [[m
+[32m+[m[32m                        {[m
+[32m+[m[32m                            "pattern": "^[a-zA-Z0-9]+$",[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        {[m
+[32m+[m[32m                            "items": {[m
+[32m+[m[32m                                "pattern": "^[a-zA-Z0-9]+$",[m
+[32m+[m[32m                                "type": "string"[m
+[32m+[m[32m                            },[m
+[32m+[m[32m                            "type": "array"[m
+[32m+[m[32m                        }[m
+[32m+[m[32m                    ][m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Metadata": {[m
+[32m+[m[32m                    "type": "object"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Properties": {[m
+[32m+[m[32m                    "additionalProperties": false,[m
+[32m+[m[32m                    "properties": {[m
+[32m+[m[32m                        "DirectoryUserId": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "HierarchyGroupArn": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "IdentityInfo": {[m
+[32m+[m[32m                            "$ref": "#/definitions/AWS::Connect::User.UserIdentityInfo"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "InstanceArn": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "Password": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "PhoneConfig": {[m
+[32m+[m[32m                            "$ref": "#/definitions/AWS::Connect::User.UserPhoneConfig"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "RoutingProfileArn": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "SecurityProfileArns": {[m
+[32m+[m[32m                            "items": {[m
+[32m+[m[32m                                "type": "string"[m
+[32m+[m[32m                            },[m
+[32m+[m[32m                            "type": "array"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "Tags": {[m
+[32m+[m[32m                            "items": {[m
+[32m+[m[32m                                "$ref": "#/definitions/Tag"[m
+[32m+[m[32m                            },[m
+[32m+[m[32m                            "type": "array"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "Username": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        }[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "required": [[m
+[32m+[m[32m                        "InstanceArn",[m
+[32m+[m[32m                        "PhoneConfig",[m
+[32m+[m[32m                        "RoutingProfileArn",[m
+[32m+[m[32m                        "SecurityProfileArns",[m
+[32m+[m[32m                        "Username"[m
+[32m+[m[32m                    ],[m
+[32m+[m[32m                    "type": "object"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Type": {[m
+[32m+[m[32m                    "enum": [[m
+[32m+[m[32m                        "AWS::Connect::User"[m
+[32m+[m[32m                    ],[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "UpdateReplacePolicy": {[m
+[32m+[m[32m                    "enum": [[m
+[32m+[m[32m                        "Delete",[m
+[32m+[m[32m                        "Retain",[m
+[32m+[m[32m                        "Snapshot"[m
+[32m+[m[32m                    ],[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "Type",[m
+[32m+[m[32m                "Properties"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::Connect::User.UserIdentityInfo": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "Email": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "FirstName": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "LastName": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::Connect::User.UserPhoneConfig": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "AfterContactWorkTimeLimit": {[m
+[32m+[m[32m                    "type": "number"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "AutoAccept": {[m
+[32m+[m[32m                    "type": "boolean"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "DeskPhoneNumber": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "PhoneType": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "PhoneType"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::Connect::UserHierarchyGroup": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+                 "Condition": {[m
+[36m@@ -31560,6 +32128,113 @@[m
+             ],[m
+             "type": "object"[m
+         },[m
+[32m+[m[32m        "AWS::ConnectCampaigns::Campaign": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "Condition": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "DeletionPolicy": {[m
+[32m+[m[32m                    "enum": [[m
+[32m+[m[32m                        "Delete",[m
+[32m+[m[32m                        "Retain",[m
+[32m+[m[32m                        "Snapshot"[m
+[32m+[m[32m                    ],[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "DependsOn": {[m
+[32m+[m[32m                    "anyOf": [[m
+[32m+[m[32m                        {[m
+[32m+[m[32m                            "pattern": "^[a-zA-Z0-9]+$",[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        {[m
+[32m+[m[32m                            "items": {[m
+[32m+[m[32m                                "pattern": "^[a-zA-Z0-9]+$",[m
+[32m+[m[32m                                "type": "string"[m
+[32m+[m[32m                            },[m
+[32m+[m[32m                            "type": "array"[m
+[32m+[m[32m                        }[m
+[32m+[m[32m                    ][m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Metadata": {[m
+[32m+[m[32m                    "type": "object"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Properties": {[m
+[32m+[m[32m                    "additionalProperties": false,[m
+[32m+[m[32m                    "properties": {[m
+[32m+[m[32m                        "ConnectInstanceArn": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "DialerConfig": {[m
+[32m+[m[32m                            "type": "object"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "Name": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "OutboundCallConfig": {[m
+[32m+[m[32m                            "$ref": "#/definitions/AWS::ConnectCampaigns::Campaign.OutboundCallConfig"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "Tags": {[m
+[32m+[m[32m                            "items": {[m
+[32m+[m[32m                                "$ref": "#/definitions/Tag"[m
+[32m+[m[32m                            },[m
+[32m+[m[32m                            "type": "array"[m
+[32m+[m[32m                        }[m
+[32m+[m[32m                    },[m
+[32m+[m[32m                    "required": [[m
+[32m+[m[32m                        "ConnectInstanceArn",[m
+[32m+[m[32m                        "DialerConfig",[m
+[32m+[m[32m                        "Name",[m
+[32m+[m[32m                        "OutboundCallConfig"[m
+[32m+[m[32m                    ],[m
+[32m+[m[32m                    "type": "object"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Type": {[m
+[32m+[m[32m                    "enum": [[m
+[32m+[m[32m                        "AWS::ConnectCampaigns::Campaign"[m
+[32m+[m[32m                    ],[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "UpdateReplacePolicy": {[m
+[32m+[m[32m                    "enum": [[m
+[32m+[m[32m                        "Delete",[m
+[32m+[m[32m                        "Retain",[m
+[32m+[m[32m                        "Snapshot"[m
+[32m+[m[32m                    ],[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "Type",[m
+[32m+[m[32m                "Properties"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::ConnectCampaigns::Campaign.DialerConfig": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {},[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::ConnectCampaigns::Campaign.OutboundCallConfig": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "ConnectContactFlowArn": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "ConnectQueueArn": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "ConnectSourcePhoneNumber": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "ConnectContactFlowArn",[m
+[32m+[m[32m                "ConnectQueueArn"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+         "AWS::CustomerProfiles::Domain": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[36m@@ -36231,12 +36906,21 @@[m
+                 "Properties": {[m
+                     "additionalProperties": false,[m
+                     "properties": {[m
+[32m+[m[32m                        "AccessPointArn": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+                         "Ec2Config": {[m
+                             "$ref": "#/definitions/AWS::DataSync::LocationEFS.Ec2Config"[m
+                         },[m
+                         "EfsFilesystemArn": {[m
+                             "type": "string"[m
+                         },[m
+[32m+[m[32m                        "FileSystemAccessRoleArn": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+[32m+[m[32m                        "InTransitEncryption": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+                         "Subdirectory": {[m
+                             "type": "string"[m
+                         },[m
+[36m@@ -36374,7 +37058,7 @@[m
+             ],[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::DataSync::LocationFSxOpenZFS": {[m
+[32m+[m[32m        "AWS::DataSync::LocationFSxONTAP": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+                 "Condition": {[m
+[36m@@ -36409,11 +37093,8 @@[m
+                 "Properties": {[m
+                     "additionalProperties": false,[m
+                     "properties": {[m
+[31m-                        "FsxFilesystemArn": {[m
+[31m-                            "type": "string"[m
+[31m-                        },[m
+                         "Protocol": {[m
+[31m-                            "$ref": "#/definitions/AWS::DataSync::LocationFSxOpenZFS.Protocol"[m
+[32m+[m[32m                            "$ref": "#/definitions/AWS::DataSync::LocationFSxONTAP.Protocol"[m
+                         },[m
+                         "SecurityGroupArns": {[m
+                             "items": {[m
+[36m@@ -36421,6 +37102,9 @@[m
+                             },[m
+                             "type": "array"[m
+                         },[m
+[32m+[m[32m                        "StorageVirtualMachineArn": {[m
+[32m+[m[32m                            "type": "string"[m
+[32m+[m[32m                        },[m
+                         "Subdirectory": {[m
+                             "type": "string"[m
+                         },[m
+[36m@@ -36432,15 +37116,15 @@[m
+                         }[m
+                     },[m
+                     "required": [[m
+[31m-                        "FsxFilesystemArn",[m
+                         "Protocol",[m
+[31m-                        "SecurityGroupArns"[m
+[32m+[m[32m                        "SecurityGroupArns",[m
+[32m+[m[32m                        "StorageVirtualMachineArn"[m
+                     ],[m
+                     "type": "object"[m
+                 },[m
+                 "Type": {[m
+                     "enum": [[m
+[31m-                        "AWS::DataSync::LocationFSxOpenZFS"[m
+[32m+[m[32m                        "AWS::DataSync::LocationFSxONTAP"[m
+                     ],[m
+                     "type": "string"[m
+                 },[m
+[36m@@ -36459,7 +37143,19 @@[m
+             ],[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::DataSync::LocationFSxOpenZFS.MountOptions": {[m
+[32m+[m[32m        "AWS::DataSync::LocationFSxONTAP.NFS": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "MountOptions": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::DataSync::LocationFSxONTAP.NfsMountOptions"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "required": [[m
+[32m+[m[32m                "MountOptions"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::DataSync::LocationFSxONTAP.NfsMountOptions": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+                 "Version": {[m
+[36m@@ -36468,28 +37164,166 @@[m
+             },[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::DataSync::LocationFSxOpenZFS.NFS": {[m
+[32m+[m[32m        "AWS::DataSync::LocationFSxONTAP.Protocol": {[m
+[32m+[m[32m            "additionalProperties": false,[m
+[32m+[m[32m            "properties": {[m
+[32m+[m[32m                "NFS": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::DataSync::LocationFSxONTAP.NFS"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "SMB": {[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::DataSync::LocationFSxONTAP.SMB"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "type": "object"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "AWS::DataSync::LocationFSxONTAP.SMB": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[32m+[m[32m                "Domain": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+                 "MountOptions": {[m
+[31m-                    "$ref": "#/definitions/AWS::DataSync::LocationFSxOpenZFS.MountOptions"[m
+[32m+[m[32m                    "$ref": "#/definitions/AWS::DataSync::LocationFSxONTAP.SmbMountOptions"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "Password": {[m
+[32m+[m[32m                    "type": "string"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                "User": {[m
+[32m+[m[32m                    "type": "string"[m
+                 }[m
+             },[m
+             "required": [[m
+[31m-                "MountOptions"[m
+[32m+[m[32m                "MountOptions",[m
+[32m+[m[32m                "Password",[m
+[32m+[m[32m                "User"[m
+             ],[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::DataSync::LocationFSxOpenZFS.Protocol": {[m
+[32m+[m[32m        "AWS::DataSync::LocationFSxONTAP.SmbMountOptions": {[m
+             "additionalProperties": false,[m
+             "properties": {[m
+[31m-                "NFS": {[m
+[31m-                    "$ref": "#/definitions/AWS::DataSync::LocationFSxOpenZFS.NFS"[m
+[32m+[m[32m                "Version": {[m
+[32m+[m[32m                    "type": "string"[m
+                 }[m
+             },[m
+             "type": "object"[m
+         },[m
+[31m-        "AWS::DataSync::LocationFSxWindows": {[m
+[32m+[m
